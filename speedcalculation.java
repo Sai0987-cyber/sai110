@@ -1,51 +1,61 @@
-import java.io.*;
-import java.util.*;
-
 // Abstract class
 abstract class Vehicle {
-    double distance, time;
+    abstract double calculateSpeed();
+    abstract double calculateVelocity();
+}
 
-    Vehicle(double distance, double time) {
+// Car subclass
+class Car extends Vehicle {
+    private double distance;
+    private double time;
+
+    Car(double distance, double time) {
         this.distance = distance;
         this.time = time;
     }
 
-    abstract double calculateSpeed();
-}
-
-// Car class
-class Car extends Vehicle {
-    Car(double distance, double time) {
-        super(distance, time);
-    }
-
-    double calculateSpeed() {
+    @Override
+    public double calculateSpeed() {
         return distance / time;
     }
+
+    @Override
+    public double calculateVelocity() {
+        return distance / time; // assuming straight-line motion
+    }
 }
 
-// Bike class
+// Bike subclass
 class Bike extends Vehicle {
+    private double distance;
+    private double time;
+
     Bike(double distance, double time) {
-        super(distance, time);
+        this.distance = distance;
+        this.time = time;
     }
 
-    double calculateSpeed() {
+    @Override
+    public double calculateSpeed() {
         return distance / time;
+    }
+
+    @Override
+    public double calculateVelocity() {
+        return distance / time; // assuming straight-line motion
     }
 }
 
 // Main class
-public class SpeedCalculation {
+public class VehicleDemo {
     public static void main(String[] args) {
-        try {
-            // Reading data from file
-            File file = new File("input.txt");
-            Scanner sc = new Scanner(file);
+        Vehicle car = new Car(120, 2);   // distance in km, time in hours
+        Vehicle bike = new Bike(60, 1.5);
 
-            double carDistance = sc.nextDouble();
-            double carTime = sc.nextDouble();
-            double bikeDistance = sc.nextDouble();
-            double bikeTime = sc.nextDouble();
+        System.out.println("Car Speed: " + car.calculateSpeed() + " km/h");
+        System.out.println("Car Velocity: " + car.calculateVelocity() + " km/h");
 
-            Vehicle car
+        System.out.println("Bike Speed: " + bike.calculateSpeed() + " km/h");
+        System.out.println("Bike Velocity: " + bike.calculateVelocity() + " km/h");
+    }
+}
